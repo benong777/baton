@@ -1,9 +1,11 @@
 import { Tabs } from 'expo-router';
+import { View } from 'react-native';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Avatar } from '@/components/Avatar';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -12,7 +14,17 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        headerStyle: {
+          backgroundColor: 'blue',
+        },
+        headerTintColor: 'white',
+            headerRight: () => (
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
+                {/* <PressableOpacity hitSlop={10} onPress={() => router.push('/userprofile')}> */}
+                  <Avatar name={'John Doe'} size={28} />
+                {/* </PressableOpacity> */}
+              </View>
+            ),
       }}>
       <Tabs.Screen
         name="index"

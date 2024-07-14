@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Platform } from 'react-native';
+import { Link } from 'expo-router';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -15,6 +16,9 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
+      <Link href="/login">
+        <ThemedText type="link">Go to login screen!</ThemedText>
+      </Link>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
