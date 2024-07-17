@@ -67,6 +67,16 @@ export default function RootLayout() {
             //   backgroundColor: 'blue',
             // },
           }} />
+        <Stack.Screen name="location"
+          options={{
+            headerTitle: 'Location',
+            headerBackTitleVisible: false,
+            headerTintColor: 'white',
+            // headerBackVisible: false,      // Back arrow
+            // headerStyle: {
+            //   backgroundColor: 'blue',
+            // },
+          }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

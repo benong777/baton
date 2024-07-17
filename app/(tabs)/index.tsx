@@ -1,8 +1,8 @@
 import { Image, StyleSheet, Platform, View, Text, SafeAreaView } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { useState } from 'react';
 
-import { GOOGLE_MAPS_API_KEY } from '@env';
+// import { GOOGLE_MAPS_API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -23,19 +23,29 @@ export default function HomeScreen() {
       <View style={{ flex: 1 }}>
         <GooglePlacesAutocomplete
           placeholder="Search"
+          textInputProps={{ clearButtonMode: true }}
           query={{
-            key: GOOGLE_MAPS_API_KEY,
+            key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
             language: 'en',
           }}
           // onPress={(data, details = null) => console.log(data, details)}
           onPress={(data, details = null) => {
-            const { lat, lng } = details.geometry.location;
-            setRegion({
-              latitude: lat,
-              longitude: lng,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            });
+            if (details && details.geometry && details.geometry.location) {
+              const { lat, lng } = details.geometry.location;
+              router.push({
+                pathname: '/location',
+                params: { lat, lng },
+              })
+              // setRegion({
+              //   latitude: lat,
+              //   longitude: lng,
+              //   latitudeDelta: 0.0922,
+              //   longitudeDelta: 0.0421,
+              // });
+            } else {
+              // Handle the case where details or location is null
+              console.warn('Location details are missing (null)');
+            }
           }}
           fetchDetails={true}
           onFail={error => console.log(error)}
