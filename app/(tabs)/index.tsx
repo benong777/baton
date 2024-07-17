@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 // import { GOOGLE_MAPS_API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import MapView, { Marker } from 'react-native-maps';
+// import MapView, { Marker } from 'react-native-maps';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -12,13 +12,6 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
-  const [region, setRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-
   return (
       <View style={{ flex: 1 }}>
         <GooglePlacesAutocomplete
@@ -57,11 +50,6 @@ export default function HomeScreen() {
           // )}
         />
 
-        <View style={{ marginVertical: 12, flex: 1 }}>
-          <MapView style={styles.map} region={region}>
-            <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
-          </MapView>
-        </View>
       </View>
 
     // <ParallaxScrollView
@@ -159,8 +147,5 @@ const styles = StyleSheet.create({
   },
   listView: {
     backgroundColor: 'white',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
   },
 });
