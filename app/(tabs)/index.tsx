@@ -16,7 +16,6 @@ export default function HomeScreen() {
       <View style={{ flex: 1 }}>
         <GooglePlacesAutocomplete
           placeholder="Search"
-          textInputProps={{ clearButtonMode: true }}
           query={{
             key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
             language: 'en',
