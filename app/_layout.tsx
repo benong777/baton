@@ -33,6 +33,7 @@ export default function RootLayout() {
       <StatusBar barStyle='light-content' />
       <Stack
         screenOptions={{
+          headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: 'blue',
           },
