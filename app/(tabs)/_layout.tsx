@@ -1,5 +1,5 @@
-import { Tabs } from 'expo-router';
-import { View } from 'react-native';
+import { Tabs, router } from 'expo-router';
+import { Pressable, View } from 'react-native';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
@@ -19,13 +19,13 @@ export default function TabLayout() {
           backgroundColor: 'blue',
         },
         headerTintColor: 'white',
-            headerRight: () => (
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                {/* <PressableOpacity hitSlop={10} onPress={() => router.push('/userprofile')}> */}
-                  <Avatar name={'John Doe'} size={28} />
-                {/* </PressableOpacity> */}
-              </View>
-            ),
+        headerRight: () => (
+          <View style={{ borderWidth: 1, borderColor: 'orange', flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
+            <Pressable hitSlop={10} onPress={ () => router.push({ pathname: '/profile', }) }>
+              <Avatar name={'John Doe'} size={28} />
+            </Pressable>
+          </View>
+        ),
       }}>
       <Tabs.Screen
         name="index"

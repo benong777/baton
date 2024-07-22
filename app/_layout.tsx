@@ -1,9 +1,9 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { StatusBar, View, Text } from 'react-native';
+import { Pressable, StatusBar, View } from 'react-native';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -37,11 +37,12 @@ export default function RootLayout() {
           headerStyle: {
             backgroundColor: 'blue',
           },
+          contentStyle: { padding: 0 },
           headerRight: () => (
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                {/* <PressableOpacity hitSlop={10} onPress={() => router.push('/userprofile')}> */}
+              <View style={{ borderWidth: 1, borderColor: 'red', marginRight: -8 }}>
+                <Pressable hitSlop={10} onPress={() => router.push('/profile')}>
                   <Avatar name={'John Doe'} size={28} />
-                {/* </PressableOpacity> */}
+                </Pressable >
               </View>
           )
         }}
@@ -54,29 +55,20 @@ export default function RootLayout() {
             headerBackTitleVisible: false,
             headerTintColor: 'white',
             // headerBackVisible: false,      // Back arrow
-            // headerStyle: {
-            //   backgroundColor: 'blue',
-            // },
           }} />
         <Stack.Screen name="login"
           options={{
             headerTitle: 'Login',
             headerBackTitleVisible: false,
             headerTintColor: 'white',
-            // headerBackVisible: false,      // Back arrow
-            // headerStyle: {
-            //   backgroundColor: 'blue',
-            // },
+            // headerBackVisible: false,
           }} />
         <Stack.Screen name="location"
           options={{
             headerTitle: 'Location',
             headerBackTitleVisible: false,
             headerTintColor: 'white',
-            // headerBackVisible: false,      // Back arrow
-            // headerStyle: {
-            //   backgroundColor: 'blue',
-            // },
+            // headerBackVisible: false,
           }} />
         <Stack.Screen name="+not-found" />
       </Stack>
