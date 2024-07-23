@@ -26,7 +26,6 @@ export default function HomeScreen() {
           minLength={2}
           nearbyPlacesAPI='GooglePlacesSearch'
           enablePoweredByContainer={false}
-
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           GooglePlacesSearchQuery={{ rankby: 'distance' }}
           query={{
@@ -39,15 +38,18 @@ export default function HomeScreen() {
             container: styles.autocompleteContainer,
             description: {                  // List of results
               color: '#000',
-              fontSize: 16,
+              fontSize: 14,
             },
-            predefinedPlacesDescription: {
-              color: '#3caf50',
-            },
+            // predefinedPlacesDescription: {
+            //   color: '#3caf50',
+            // },
             textInput: {
-              borderWidth: 2,
-              borderColor: 'orange',
+              // borderWidth: 2,
+              // borderColor: 'orange',
+              // color: '#5d5d5d',
+              borderRadius: 24,
               fontSize: 16,
+              margin: 16,
             },
           }}
           onPress={(data, details = null) => {

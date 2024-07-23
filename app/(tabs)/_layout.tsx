@@ -20,7 +20,7 @@ export default function TabLayout() {
         },
         headerTintColor: 'white',
         headerRight: () => (
-          <View style={{ borderWidth: 1, borderColor: 'orange', flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
+          <View style={{ flexDirection: 'row', marginRight: 8 }}>
             <Pressable hitSlop={10} onPress={ () => router.push({ pathname: '/profile', }) }>
               <Avatar name={'John Doe'} size={28} />
             </Pressable>

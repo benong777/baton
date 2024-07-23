@@ -39,7 +39,7 @@ export default function RootLayout() {
           },
           contentStyle: { padding: 0 },
           headerRight: () => (
-              <View style={{ borderWidth: 1, borderColor: 'red', marginRight: -8 }}>
+              <View style={{ flexDirection: 'row', marginRight: -8 }}>
                 <Pressable hitSlop={10} onPress={() => router.push('/profile')}>
                   <Avatar name={'John Doe'} size={28} />
                 </Pressable >
