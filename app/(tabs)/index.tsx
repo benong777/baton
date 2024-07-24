@@ -28,6 +28,7 @@ export default function HomeScreen() {
           enablePoweredByContainer={false}
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           GooglePlacesSearchQuery={{ rankby: 'distance' }}
+          // currentLocation={true}            // Needed to get current location
           query={{
             key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
             language: 'en',
@@ -44,18 +45,15 @@ export default function HomeScreen() {
             //   color: '#3caf50',
             // },
             textInput: {
-              // borderWidth: 2,
-              // borderColor: 'orange',
-              // color: '#5d5d5d',
               borderRadius: 24,
               fontSize: 16,
               margin: 16,
             },
           }}
           onPress={(data, details = null) => {
-            if (details && details.geometry && details.geometry.location) {
+            if (details) {
               const { lat, lng } = details.geometry.location;
-              console.log('LAT type: ', typeof(lat));
+              // console.log('LAT type: ', typeof(lat));
               router.push({
                 pathname: '/location',
                 params: { lat, lng },
