@@ -21,7 +21,7 @@ export default function Login() {
       <Link href={{
           pathname: '/profile',
           params: { },
-        }}> Go to Profile!
+        }}> Go to Profile
       </Link>
     </>
   );
