@@ -1,77 +1,42 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack, router } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import { Pressable, StatusBar, View } from 'react-native';
-import 'react-native-reanimated';
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { Slot, useRouter, useSegments } from 'expo-router'
+import { AuthContextProvider, useAuth } from '../components/context/authContext';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Avatar } from '@/components/Avatar';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+const MainLayout = () => {
+  const {isAuthenticated} = useAuth();
+  const segments = useSegments();   // returns all segments in current route
+  const router = useRouter();
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    // check if user is authenticated or not
+    //  - if undefined, keep showing the loading state to user
+    if (typeof isAuthenticated == 'undefined') return;
 
-  if (!loaded) {
-    return null;
-  }
+    const inApp = segments[0] == '(app)'; // user already in app group
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <StatusBar barStyle='light-content' />
-      <Stack
-        screenOptions={{
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: 'blue',
-          },
-          contentStyle: { padding: 0 },
-          headerRight: () => (
-              <View style={{ flexDirection: 'row', marginRight: -8 }}>
-                <Pressable hitSlop={10} onPress={() => router.push('/profile')}>
-                  <Avatar name={'John Doe'} size={28} />
-                </Pressable >
-              </View>
-          )
-        }}
-      >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="profile/[id]" */}
-        <Stack.Screen name="profile"
-          options={{
-            headerTitle: 'Profile',
-            headerBackTitleVisible: false,
-            headerTintColor: 'white',
-            // headerBackVisible: false,      // Back arrow
-          }} />
-        <Stack.Screen name="login"
-          options={{
-            headerTitle: 'Login',
-            headerBackTitleVisible: false,
-            headerTintColor: 'white',
-            // headerBackVisible: false,
-          }} />
-        <Stack.Screen name="location"
-          options={{
-            headerTitle: 'Location',
-            headerBackTitleVisible: false,
-            headerTintColor: 'white',
-            // headerBackVisible: false,
-          }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+    console.log('isAuthenticated:', isAuthenticated);
+
+    if (isAuthenticated && !inApp) {
+      // redirect to Home
+      // router.replace('home'); // used replace to prevent user from going back to loading page
+      router.replace('/explore'); // used replace to prevent user from going back to loading page
+    } else if (isAuthenticated == false) {
+      // redirect to SignIn
+      router.replace('signIn');
+    } 
+
+  }, [isAuthenticated]);
+
+  return <Slot/>
 }
+
+export default function RootLayout() {
+  return (
+    <AuthContextProvider>
+      <MainLayout />
+    </AuthContextProvider>
+  )
+}
+
+const styles = StyleSheet.create({})
