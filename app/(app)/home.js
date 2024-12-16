@@ -1,12 +1,17 @@
-import { StyleSheet, View, } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
+import { useAuth } from '../../components/context/authContext';
 import { router } from 'expo-router';
-import { useState } from 'react';
-
-// import { GOOGLE_MAPS_API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function HomeScreen() {
+export default function Home () {
+  const { logout, user } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+  }
+
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -16,6 +21,14 @@ export default function HomeScreen() {
 
   return (
       <View style={{ flex: 1 }}>
+        <View style={{ }}>
+          <Pressable onPress={handleLogout}>
+            <Text>Sign Out</Text>
+          </Pressable>
+        </View>
+
+        <View style={{ flex: 1 }}>
+
         <MapView style={styles.map} region={region}>
           <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
         </MapView>
@@ -73,6 +86,7 @@ export default function HomeScreen() {
           // )}
         />
 
+        </View>
       </View>
   );
 }

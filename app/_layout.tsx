@@ -19,8 +19,8 @@ const MainLayout = () => {
 
     if (isAuthenticated && !inApp) {
       // redirect to Home
-      // router.replace('home'); // used replace to prevent user from going back to loading page
-      router.replace('/explore'); // used replace to prevent user from going back to loading page
+      router.replace('home'); // used replace to prevent user from going back to loading page
+      // router.replace('/explore'); // used replace to prevent user from going back to loading page
     } else if (isAuthenticated == false) {
       // redirect to SignIn
       router.replace('signIn');
