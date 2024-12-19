@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
-import { useAuth } from '../../components/context/authContext';
+// import { useAuth } from '../../../components/context/authContext';
+import { useAuth } from '../../../components/context/authContext';
 import { router } from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView, { Marker } from 'react-native-maps';
