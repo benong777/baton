@@ -15,7 +15,6 @@ const TabsLayout = () => {
         name="profile/[id]"
         options={{
           title: "Profile",
-          headerTitle: "Profile",
         }}/>
     </Tabs>
   )
