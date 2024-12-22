@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
-// import { useAuth } from '../../../components/context/authContext';
 import { useAuth } from '../../../components/context/authContext';
 import { Link, router } from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -83,11 +82,20 @@ export default function Home () {
         </View>
         
         <View style={{ }}>
-          <Link href="/profile/1">Go to profile 1</Link>
+          {/* <Link href="/profile/1">Go to profile 1</Link> */}
+          <Link 
+            href={{
+              pathname: '/profile/[id]',
+              params: {id: user.userId }
+            }}
+          >
+            Go to profile 1
+          </Link>
           <Pressable onPress={() => {
             router.push({
+              // pathname: '/profile/[id]',
               pathname: '/profile/[id]',
-              params: { id: 2 }
+              params: { id: user.userId }
             })
           }}>
             <Text>Go to Profile 2</Text>
