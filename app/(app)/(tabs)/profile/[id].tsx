@@ -2,22 +2,21 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '../../../../components/context/authContext';
 import { useLocalSearchParams } from 'expo-router'
+import { handleLogout } from '../../../../functions/handleLogout'
 
 const Profile = () => {
   const { logout, user } = useAuth();
   const {id} = useLocalSearchParams();
 
-  console.log('USER: ', user.userId);
-
-  const handleLogout = async () => {
-    await logout();
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  // };
 
   return (
     <View>
-      {/* <Text>Username: {user.username}</Text> */}
+      <Text>userId: {user.email}</Text>
       <Text>Username: {id}</Text>
-      <Pressable onPress={handleLogout}>
+      <Pressable onPress={() => handleLogout(logout)}>
         <Text>Sign Out</Text>
       </Pressable>
     </View>

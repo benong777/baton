@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { FlatList, StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import MapView, { Marker, Region } from 'react-native-maps';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -7,48 +7,80 @@ import { Avatar } from '@/components/Avatar';
 
 const location = () => {
   const { lat, lng }  = useLocalSearchParams();
+  // const { lat, lng, data }  = useLocalSearchParams();
+  // const dataObject = JSON.parse(data);
 
   const region: Region = {
     latitude: parseFloat(lat),
     longitude: parseFloat(lng),
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    // latitudeDelta: 0.0922,
+    // longitudeDelta: 0.0421,
+    latitudeDelta: 0.0071,
+    longitudeDelta: 0.0071,
   }
 
-  const comments = [
-    {
-      id: '1',
-      userName: 'thor@avengers.com',
-      firstName: 'Thor',
-      lastName: 'Thunder',
-      date: 'Jan 1, 2024',
-      comment: 'Full'
-    },
-    {
-      id: '2',
-      userName: 'vision@avengers.com',
-      firstName: 'Vision',
-      lastName: 'Vis',
-      date: 'Jan 1, 2024',
-      comment: 'Open'
-    },
-    {
-      id: '3',
-      userName: 'cap@avengers.com',
-      firstName: 'Captain',
-      lastName: 'America',
-      date: 'Jan 1, 2024',
-      comment: 'Getting busy'
-    },
-    {
-      id: '4',
-      userName: 'stark@avengers.com',
-      firstName: 'John',
-      lastName: 'Stark',
-      date: 'Jan 1, 2024',
-      comment: 'Packed. Turn back while you can! Packed. Turn back while you can!'
-    },
-  ]
+  const [comments, setComments] = useState(
+    [
+      {
+        id: '1',
+        userName: 'thor@avengers.com',
+        firstName: 'Thor',
+        lastName: 'Thunder',
+        date: 'Jan 1, 2024',
+        comment: 'Full'
+      },
+      {
+        id: '2',
+        userName: 'vision@avengers.com',
+        firstName: 'Vision',
+        lastName: 'Vis',
+        date: 'Jan 1, 2024',
+        comment: 'Open'
+      },
+      {
+        id: '3',
+        userName: 'cap@avengers.com',
+        firstName: 'Captain',
+        lastName: 'America',
+        date: 'Jan 1, 2024',
+        comment: 'Getting busy'
+      },
+      {
+        id: '4',
+        userName: 'stark@avengers.com',
+        firstName: 'John',
+        lastName: 'Stark',
+        date: 'Jan 1, 2024',
+        comment: 'Packed. Turn back while you can! Packed. Turn back while you can!'
+      },
+    ]
+  );
+
+  const [inputComment, setInputComment] = useState('');
+
+  function inputHandler(textInput: string) {
+    console.log(textInput);
+    setInputComment(textInput);
+  };
+
+  function addCommentHandler() {
+    setComments((currentComments) => [
+      ...currentComments,
+      {
+        id: '5',
+        userName: 'doom@avengers.com',
+        firstName: 'Doom',
+        lastName: 'Doom',
+        date: 'Jan 2, 2024',
+        comment: inputComment
+      },
+    ]);
+    console.log(comments);
+  };
+
+  // useEffect(() => {
+
+  // }, [comments]);
 
   const renderItem = ({item}) => {
     return (
@@ -80,10 +112,21 @@ const location = () => {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 2 }}>
             <MapView style={styles.map} region={region}>
-              <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
+              <Marker
+                coordinate={{ latitude: region.latitude, longitude: region.longitude }}
+                // description={data}
+              />
             </MapView>
           </View>
           <View style={{ flex: 5 }}>
+            <TextInput
+              placeholder='Add comment'
+              onChangeText={inputHandler}
+            />
+            <Button 
+              title='Submit'
+              onPress={addCommentHandler}
+            />
             <FlatList
               style={{ marginTop: 4 }}
               data={comments}

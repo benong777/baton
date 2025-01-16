@@ -8,7 +8,16 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: "Search",
+          headerStyle: {
+            // backgroundColor: 'darkblue'
+          }
+        }}
+      />
+      <Tabs.Screen
+        name="location"
+        options={{
+          title: "location",
           headerStyle: {
             // backgroundColor: 'darkblue'
           }

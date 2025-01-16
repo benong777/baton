@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
 import { useAuth } from '../../../components/context/authContext';
+import { handleLogout } from '../../../functions/handleLogout';
 import { Link, router } from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView, { Marker } from 'react-native-maps';
 
 export default function Home () {
   const { logout, user } = useAuth();
+  console.log('User: ', user);
+  console.log('User ID: ', user.email);
 
-  const handleLogout = async () => {
-    await logout();
-  }
+  // const handleLogout = async () => {
+  //   await logout();
+  // }
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    // latitudeDelta: 0.0922,
+    // longitudeDelta: 0.0421,
+    latitudeDelta: 0.0221,
+    longitudeDelta: 0.0221,
   });
 
   return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          <MapView style={styles.map} region={region}>
+          <MapView
+            style={styles.map}
+            region={region}
+            // mapType='mutedStandard'
+          >
             <Marker coordinate={{ latitude: region.latitude, longitude: region.longitude }} />
           </MapView>
 
@@ -60,9 +69,13 @@ export default function Home () {
               if (details) {
                 const { lat, lng } = details.geometry.location;
                 // console.log('LAT type: ', typeof(lat));
+                // console.log('Data:', data.structured_formatting.main_text);
+                console.log('Data:', data);
+                console.log(details);
                 router.push({
                   pathname: '/location',
                   params: { lat, lng },
+                  // params: { lat, lng, data: JSON.stringify(data.structured_formatting.main_text) },
                 })
               } else {
                 // Handle the case where details or location is null
@@ -82,15 +95,15 @@ export default function Home () {
         </View>
         
         <View style={{ }}>
-          {/* <Link href="/profile/1">Go to profile 1</Link> */}
-          <Link 
+          <Link href="/profile/1">Go to profile 1</Link>
+          {/* <Link 
             href={{
               pathname: '/profile/[id]',
               params: {id: user.userId }
             }}
           >
-            Go to profile 1
-          </Link>
+            Go to profile 1: {user.userId}
+          </Link> */}
           <Pressable onPress={() => {
             router.push({
               // pathname: '/profile/[id]',
@@ -100,7 +113,7 @@ export default function Home () {
           }}>
             <Text>Go to Profile 2</Text>
           </Pressable>
-          <Pressable onPress={handleLogout}>
+          <Pressable onPress={() => handleLogout(logout)}>
             <Text>Sign Out</Text>
           </Pressable>
         </View>
