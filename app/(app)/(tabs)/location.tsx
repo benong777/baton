@@ -56,11 +56,11 @@ const location = () => {
     ]
   );
 
-  const [inputComment, setInputComment] = useState('');
+  const [enteredComment, setEnteredComment] = useState('');
 
   function inputHandler(textInput: string) {
     console.log(textInput);
-    setInputComment(textInput);
+    setEnteredComment(textInput);
   };
 
   function addCommentHandler() {
@@ -72,7 +72,7 @@ const location = () => {
         firstName: 'Doom',
         lastName: 'Doom',
         date: 'Jan 2, 2024',
-        comment: inputComment
+        comment: enteredComment
       },
     ]);
     console.log(comments);
