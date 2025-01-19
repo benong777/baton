@@ -56,6 +56,8 @@ const location = () => {
     ]
   );
 
+  const lineHeight = 20;
+  const [height, setHeight] = useState(40);
   const [enteredComment, setEnteredComment] = useState('');
 
   function inputHandler(textInput: string) {
@@ -119,17 +121,31 @@ const location = () => {
             </MapView>
           </View>
           <View style={{ flex: 5 }}>
-            <TextInput
-              placeholder='Add comment'
-              onChangeText={inputHandler}
-            />
-            <Button 
-              title='Submit'
-              onPress={addCommentHandler}
-            />
+            <View style={styles.commentInputContainer}>
+              <TextInput
+                style={[styles.textInput, {height: height}]}
+                placeholder='Add comment'
+                onChangeText={inputHandler}
+                multiline={true}
+                onContentSizeChange={(event) => {
+                  const newHeight = event.nativeEvent.contentSize.height;
+                  setHeight(Math.min(newHeight, 5 * 20)); // Limit to 5 lines (20 is approx. line height)
+                }}
+                // onContentSizeChange={(event) => {
+                //   const contentHeight = event.nativeEvent.contentSize.height;
+                //   const maxHeight = lineHeight * 5; // Limit height to 5 lines
+                //   setHeight(Math.min(contentHeight, maxHeight));
+                // }}
+              />
+              <Button 
+                title='Submit'
+                onPress={addCommentHandler}
+              />
+            </View>
             <FlatList
               style={{ marginTop: 4 }}
               data={comments}
+              inverted
               keyExtractor={(item) => item.id}
               renderItem={renderItem}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -150,5 +166,16 @@ const styles = StyleSheet.create({
   separator: {
     height: 8,
     backgroundColor: 'transparent'
-  }
+  },
+  commentText: {
+    fontSize: 16,
+  },
+  commentInputContainer: {
+    margin: 12,
+    padding: 12,
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: 'gray'
+  },
 })
