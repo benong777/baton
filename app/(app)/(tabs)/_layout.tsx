@@ -6,18 +6,11 @@ const TabsLayout = () => {
   return (
     <Tabs>
       <Tabs.Screen
-        name="home"
+        // name="home"
+        name="search"
         options={{
-          title: "Search",
-          headerStyle: {
-            // backgroundColor: 'darkblue'
-          }
-        }}
-      />
-      <Tabs.Screen
-        name="location"
-        options={{
-          title: "location",
+          title: "search",
+          headerShown: false,
           headerStyle: {
             // backgroundColor: 'darkblue'
           }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native';
-import { useAuth } from '../../../components/context/authContext';
-import { handleLogout } from '../../../functions/handleLogout';
+import { useAuth } from '../../../../components/context/authContext';
+import { handleLogout } from '../../../../functions/handleLogout';
 import { Link, router } from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function Home () {
+export default function Search() {
   const { logout, user } = useAuth();
   console.log('User: ', user);
   console.log('User ID: ', user.email);
@@ -73,7 +73,7 @@ export default function Home () {
                 console.log('Data:', data);
                 console.log(details);
                 router.push({
-                  pathname: '/location',
+                  pathname: '/search/1',
                   params: { lat, lng },
                   // params: { lat, lng, data: JSON.stringify(data.structured_formatting.main_text) },
                 })
